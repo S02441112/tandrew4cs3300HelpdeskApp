@@ -1,0 +1,32 @@
+<!-- inherit from base.html-->
+{% extends "helpdesk_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+    <h1>Name on Ticket: {{ ticket.requester_name }}</h1>
+    <p><strong>Ticket Done: </strong> {{ ticket.is_done }}</p>
+    <p><strong>Contact Email:</strong> {{ ticket.contact_email }}</p>
+    <p><strong>Subject:</strong> {{ ticket.subject }}</p>
+    <p><strong>Description:</strong> {{ ticket.description }}</p>
+    <p><strong>Assignee:</strong> {{ ticket.assignee }}</p>
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    
+    <h1>Ticket List</h1>
+    {% if ticket_list %}
+        <ul>
+            {% for ticket in ticket_list %}
+            
+                <li>
+                    <div class="container p-4 my-2 bg-primary text-white">
+                        <button onclick="document.location='{{ ticket.get_absolute_url }}'">{{ ticket.requester_name }}</button>
+                    </div>
+                </li>
+            
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>There are tickets registered</p>
+    {% endif %}
+{% endblock %}
+                   

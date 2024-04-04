@@ -1,0 +1,16 @@
+<!-- inherit from base.html-->
+{% extends "helpdesk_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+    <h1>Name on Ticket: {{ ticket.requester_name }}</h1>
+    <p><strong>Ticket Done: </strong> {{ ticket.is_done }}</p>
+    <p><strong>Contact Email:</strong> {{ ticket.contact_email }}</p>
+    <p><strong>Subject:</strong> {{ ticket.subject }}</p>
+    <p><strong>Description:</strong> {{ ticket.description }}</p>
+    <p><strong>Assignee:</strong> {{ ticket.assignee }}</p>
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    
+    
+                   
+{% endblock %}   

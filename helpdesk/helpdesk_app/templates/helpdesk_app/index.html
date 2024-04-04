@@ -3,8 +3,21 @@
 
 <!-- Replace block content in base_template.html -->
 {% block content %}
-<h1>Computer Science Portfolios</h1>
+<h1>Help Desk Tickets</h1>
+<h2>List of Tickets</h2>
 
-<h2>More to come from PuPu man</h2>
+
+    <ul class='list-group'>
+        {% for ticket in all_tickets %}
+        <div class="container p-5 my-5 bg-primary text-white">
+            <li class='list-group_item'>Name: {{ ticket.requester_name }}
+                <p><strong>Subject: {{ ticket.subject }}</strong></p>
+                <p><strong>Done: {{ ticket.is_done }}</strong></p>
+                <button onclick="document.location='{{ ticket.get_absolute_url }}'">View</button>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+
 
 {% endblock %}
