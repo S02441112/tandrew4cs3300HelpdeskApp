@@ -1,0 +1,24 @@
+<!-- inherit from base.html-->
+{% extends "helpdesk_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+    <p><strong>Are you sure you want to delete ticket for: </strong> "{{ ticket.requester_name }}"</p>
+    <style> 
+        input[type=button], input[type=submit], input[type=reset] {
+        background-color: #04AA6D;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        }
+        </style>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" name="cancel" value="Cancel">
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+{% endblock %}  
