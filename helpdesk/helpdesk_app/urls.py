@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -13,4 +13,9 @@ urlpatterns = [
     path('ticket/create_ticket/', views.create_ticket, name='ticket-create'),
     path('tickets/<int:ticket_id>/update/', views.update_ticket, name='ticket-update'),
     path('tickets/<int:ticket_id>/delete/', views.delete_ticket, name='ticket-delete'),
+    
+    # user accounts
+    path('accounts/', include('django.contrib.auth.urls')),
+    # the include('django.contrib.auth.urls') automatically maps all urls for login, logout, password_change, ... etc.
+    path('accounts/register/', views.registerPage, name='register-page'),
 ]

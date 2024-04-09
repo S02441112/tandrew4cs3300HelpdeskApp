@@ -8,3 +8,7 @@ class TicketForm(ModelForm):
         model = Ticket
         fields = ('requester_name', 'is_done', 'contact_email', 'subject', 'description', 'assignee', 'priority')
 
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username','email','password1','password2']

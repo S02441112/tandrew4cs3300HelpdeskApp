@@ -3,7 +3,9 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import *
 from django.views import generic
-from .forms import TicketForm
+from .forms import TicketForm, CreateUserForm
+from django.contrib.auth.models import Group
+from django.contrib import messages
 
 # Create views here.
 def index(request):
@@ -61,3 +63,21 @@ def TicketListView(request):
 
     all_tickets = Ticket.objects.all()
     return render( request, 'helpdesk_app/ticket_list.html', {'all_tickets':all_tickets})
+
+def registerPage(request):
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='student')
+            user.groups.add(group)
+            #student = Student.objects.create(user=user)
+            #portfolio = Portfolio.objects.create()
+            #student.portfolio = portfolio
+            #student.save()
+
+            messages.success(request, 'Account was created for' + username)
+            return redirect('login')
+        
+        context = {'form':form}
+        return render(request, 'registration/register.html', context)

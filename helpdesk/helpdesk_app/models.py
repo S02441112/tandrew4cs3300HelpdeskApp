@@ -1,8 +1,7 @@
 from django.db import models
 from django.urls import reverse
-#import os 
 
-# Create your models here.
+# models here
 
 class Ticket(models.Model):
 
