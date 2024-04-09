@@ -5,12 +5,7 @@ from django.urls import reverse
 # Create your models here.
 
 class Ticket(models.Model):
-#    ASSIGNEE = (
-#        ('1','Bob'),
-#        ('2','Steve'),
-#        ('3','Sarah'),
-#       ('4','Yui'),
-#    )
+
     ASSIGNEE = (
         ('Bob', 'Bob'),
         ('Steve', 'Steve'),

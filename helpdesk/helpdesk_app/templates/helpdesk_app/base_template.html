@@ -4,7 +4,13 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
-
+    <!--Load Bootstrap 5 css and js files in head tags-->
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %} 
+    {% bootstrap_javascript %}
+    <!--To use Bootstrap alerts for django.contrib.messages-->
+    {% bootstrap_messages %}
+    
    <title>Tickets</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
