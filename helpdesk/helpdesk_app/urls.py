@@ -18,4 +18,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     # the include('django.contrib.auth.urls') automatically maps all urls for login, logout, password_change, ... etc.
     path('accounts/register/', views.registerPage, name='register-page'),
+    path('user/', views.userPage, name = 'user_page'),
+
 ]

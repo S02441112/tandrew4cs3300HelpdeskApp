@@ -12,3 +12,9 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','email','password1','password2']
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'
+        #exclude = []
