@@ -11,7 +11,9 @@
     <p><strong>Assignee:</strong> {{ ticket.assignee }}</p>
     <p><strong>Priority:</strong> {{ ticket.priority }}</p>
     <p>
-        <button onclick="document.location='{% url 'ticket-update' ticket.id %}'">Update</button>
-        <button onclick="document.location='{% url 'ticket-delete' ticket.id %}'">Delete</button>
+        {% if is_help_desk %}
+            <button onclick="document.location='{% url 'ticket-update' ticket.id %}'">Update</button>
+            <button onclick="document.location='{% url 'ticket-delete' ticket.id %}'">Delete</button>
+        {% endif %}
     </p>       
 {% endblock %}   

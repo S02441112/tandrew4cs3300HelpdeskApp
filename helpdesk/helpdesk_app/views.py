@@ -6,11 +6,11 @@ from django.views import generic
 from .forms import TicketForm, CreateUserForm, UserForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.mixins import LoginRequiredMixin # only for class based views
 from django.contrib import messages
 from .decorators import allowed_users
 
 # Create views here.
-@login_required
 def index(request):
 
 # Render the HTML template index.html with the data in the context variable.
@@ -31,7 +31,7 @@ def create_ticket(request):
         
         if form.is_valid():
             ticket = form.save()
-            return redirect('ticket-detail', pk=ticket.pk)
+            return redirect('ticket-detail', pk=ticket.id)
     else:
         form = TicketForm()
     return render(request, 'helpdesk_app/ticket_form.html', {'form': form})
@@ -58,19 +58,30 @@ def delete_ticket(request, ticket_id):
             ticket.delete()
             return redirect('index')
         elif 'cancel' in request.POST:
-            return redirect('ticket-detail', pk=ticket_id)
+            return redirect('ticket-detail', ticket_id)
         return redirect('index')
     return render(request, 'helpdesk_app/delete_confirmation_form.html', {'ticket': ticket})
 
 
-class TicketDetailView(generic.DetailView):
-    model = Ticket
+def TicketDetailView(request, ticket_id):
+    ticket =Ticket.objects.get(pk=ticket_id)
+
+    # check if user is Help-Desk (ticket delete and edit)
+    is_help_desk = request.user.groups.filter(name='Help-Desk').exists()
+
+    context = { 'ticket': ticket, 'is_help_desk': is_help_desk,}
+    
+    return render(request, 'helpdesk_app/ticket_detail.html', context)
 
 @login_required
 @allowed_users(allowed_roles = ['Help-Desk'])
 def TicketListView(request):
+    # check if user is Help-Desk (ticket creation)
+    is_help_desk = request.user.groups.filter(name='Help-Desk').exists()
 
     all_tickets = Ticket.objects.all()
+
+    #context = { 'is_help_desk': is_help_desk,}
     return render( request, 'helpdesk_app/ticket_list.html', {'all_tickets':all_tickets})
 
 def registerPage(request):
@@ -80,31 +91,32 @@ def registerPage(request):
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='Viewer-Only')
             user.groups.add(group)
-            #student = Student.objects.create(user=user)
-            #portfolio = Portfolio.objects.create()
-            #student.portfolio = portfolio
-            #student.save()
 
             messages.success(request, 'Account was created for ' + username)
-            return redirect('login')
+            return redirect('user_page')
         
         context = {'form':form}
         return render(request, 'registration/register.html', context)
 
 @login_required(login_url = 'login')
-@allowed_users(allowed_roles = ['Viewer-Only'])
+@allowed_users(allowed_roles = ['Viewer-Only', 'Help-Desk'])
 def userPage(request):
     user = request.user
     form =  UserForm(instance = user)
-    print('user', user)
+
+    # Reset initial data to empty strings
+    form.initial['username'] = ''
+    form.initial['email'] = ''
 
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES, instance = user)
+        form = UserForm(request.POST, instance = user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('user_page')
 
-    context = {'user': user, 'form': form}
-    return render(request, 'helpdesk_app/user.html')
+    context = {'form': form, 'user': user,}
+    return render(request, 'helpdesk_app/user.html', context)
 
 
 
