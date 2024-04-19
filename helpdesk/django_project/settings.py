@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'helpdesk_app',
     'django_bootstrap5',
+    
 ]
 
 # Add support for authenticating users
@@ -82,8 +83,12 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': BASE_DIR / 'db.sqlite3', # Main database file path for regular use
+        'TEST': {
+            'ENGINE': 'django.db.backends.sqlite3',  # Optional: Specify a different database engine for tests (defaults to main ENGINE if not specified)
+            'NAME': BASE_DIR / 'test_db.sqlite3', # file-based database for tests
+        }
     }
 }
 
@@ -136,3 +141,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # redirect to the site homepage by default
 LOGIN_REDIRECT_URL = '/'
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'tylerma2102@gmail.com'
+EMAIL_HOST_PASSWORD = 'ulez zwev dgoc bmbm'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

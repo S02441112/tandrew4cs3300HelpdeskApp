@@ -1,22 +1,34 @@
 {% load static %}
 
-
+<style> 
+  input[type=button], input[type=submit], input[type=reset] {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  }
+  </style>
+  
 <!DOCTYPE html>
 <html lang="en">
- <head>
-    <!--Load Bootstrap 5 css and js files in head tags-->
-    {% load django_bootstrap5 %}
-    {% bootstrap_css %} 
-    {% bootstrap_javascript %}
-    <!--To use Bootstrap alerts for django.contrib.messages-->
-    {% bootstrap_messages %}
 
-   <title>Tickets</title>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Bootstrap demo</title>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
- </head>
+<head>
+  <!--Load Bootstrap 5 css and js files in head tags-->
+  {% load django_bootstrap5 %}
+  {% bootstrap_css %} 
+  {% bootstrap_javascript %}
+  <!--To use Bootstrap alerts for django.contrib.messages-->
+  {% bootstrap_messages %}
+  
+  <title>Tickets</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
 
  <body>
    <div class="container-fluid">

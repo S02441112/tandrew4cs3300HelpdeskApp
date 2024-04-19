@@ -31,7 +31,7 @@ def create_ticket(request):
         
         if form.is_valid():
             ticket = form.save()
-            return redirect('ticket-detail', pk=ticket.id)
+            return redirect('ticket-detail', ticket_id=ticket.pk)
     else:
         form = TicketForm()
     return render(request, 'helpdesk_app/ticket_form.html', {'form': form})
