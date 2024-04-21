@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +30,7 @@ SECRET_KEY = 'django-insecure-b*#n9@_8v#nug6@_r=tho#pw&^+r+d+duw&p$6oo)x9rr0w04^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -142,11 +147,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # redirect to the site homepage by default
 LOGIN_REDIRECT_URL = '/'
 
-# email settings
+# email settings for sending email via Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'tylerma2102@gmail.com'
-EMAIL_HOST_PASSWORD = 'ulez zwev dgoc bmbm'
+# DON'T HARD CODE - USE ENVIRONMENT VARIABLE
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False

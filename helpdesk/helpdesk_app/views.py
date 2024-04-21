@@ -15,8 +15,7 @@ def index(request):
 
 # Render the HTML template index.html with the data in the context variable.
 # Render index.html
-    ##########################################################
-    ##########################################################
+
     all_tickets = Ticket.objects.all()
     return render( request, 'helpdesk_app/index.html', {'all_tickets':all_tickets})
 
@@ -63,7 +62,7 @@ def delete_ticket(request, ticket_id):
     return render(request, 'helpdesk_app/delete_confirmation_form.html', {'ticket': ticket})
 
 
-def TicketDetailView(request, ticket_id):
+def ticket_detail_view(request, ticket_id):
     ticket =Ticket.objects.get(pk=ticket_id)
 
     # check if user is Help-Desk (ticket delete and edit)
@@ -75,7 +74,7 @@ def TicketDetailView(request, ticket_id):
 
 @login_required
 @allowed_users(allowed_roles = ['Help-Desk'])
-def TicketListView(request):
+def ticket_list_view(request):
     # check if user is Help-Desk (ticket creation)
     is_help_desk = request.user.groups.filter(name='Help-Desk').exists()
 
@@ -84,7 +83,7 @@ def TicketListView(request):
     #context = { 'is_help_desk': is_help_desk,}
     return render( request, 'helpdesk_app/ticket_list.html', {'all_tickets':all_tickets})
 
-def registerPage(request):
+def register_page(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -100,7 +99,7 @@ def registerPage(request):
 
 @login_required(login_url = 'login')
 @allowed_users(allowed_roles = ['Viewer-Only', 'Help-Desk'])
-def userPage(request):
+def user_page(request):
     user = request.user
     form =  UserForm(instance = user)
 
