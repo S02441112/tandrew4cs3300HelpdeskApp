@@ -41,13 +41,6 @@ class TicketFormTestCase(TestCase):
         self.assertIn('priority', form.errors)
         self.assertIn('contact_email', form.errors)
 
-
-
-
-################################################################
-################################################################
-################################################################
-
 class CreateUserFormTest(TestCase):
     def test_valid_data(self):
         form_data = {
